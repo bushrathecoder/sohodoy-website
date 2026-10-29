@@ -1,0 +1,205 @@
+/* ==========================================================
+   SOHODOY WEBSITE LOOK
+   Colors are listed first. Change a color here and it changes
+   everywhere on the site.
+   ========================================================== */
+:root {
+  --green: #1b5e3f;      /* main color (from the logo) */
+  --gold: #e0a030;       /* donate button color */
+  --ink: #1e2b27;        /* normal text */
+  --muted: #46544f;      /* lighter text */
+  --paper: #fbf8f2;      /* page background */
+  --sand: #f1ebdd;      /* alternate section background */
+  --line: #e6dfd0;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+}
+a { text-decoration: none; color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+h1, h2, h3 { font-family: "Fraunces", serif; line-height: 1.15; margin: 0; }
+.wrap { max-width: 1100px; margin: 0 auto; }
+.pre { white-space: pre-line; }      /* keeps line breaks you type in the admin panel */
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-block; font: inherit; font-weight: 600; font-size: 17px;
+  padding: 14px 30px; border-radius: 999px; border: 2px solid transparent;
+  cursor: pointer; min-height: 48px;
+}
+.btn-gold { background: var(--gold); color: var(--ink); }
+.btn-green { background: var(--green); color: #fff; }
+.btn-outline-light { border-color: #fff; color: #fff; }
+.btn-outline { border-color: var(--green); color: var(--green); padding: 8px 20px; min-height: 44px; }
+
+/* ---------- top bar ---------- */
+header.top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 12px 24px; padding: 14px 48px; background: #fff; border-bottom: 1px solid var(--line);
+  position: sticky; top: 0; z-index: 10;
+}
+.brand { display: flex; align-items: center; gap: 12px; font-family: "Fraunces", serif; font-weight: 700; font-size: 24px; color: var(--green); }
+.brand img { height: 56px; width: auto; }
+nav { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; }
+nav a.link { font-weight: 500; padding: 10px 0; }
+
+/* ---------- sections ---------- */
+section { padding: 88px 48px; }
+section.sand { background: var(--sand); }
+section.green { background: var(--green); color: #fff; }
+.section-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 40px; }
+h2 { font-size: 40px; color: var(--green); }
+section.green h2 { color: #fff; }
+
+/* hero */
+.hero { padding: 80px 48px; }
+.hero .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 48px; }
+.hero .text { flex: 1 1 480px; min-width: 0; display: flex; flex-direction: column; gap: 24px; }
+.tagline { font-family: "Noto Sans Bengali", sans-serif; font-weight: 700; font-size: 20px; color: #f6d9a4; margin: 0; }
+.hero h1 { font-size: 48px; }
+.hero p.lead { margin: 0; font-size: 19px; max-width: 640px; color: #e4f0ec; }
+.hero .buttons { display: flex; flex-wrap: wrap; gap: 16px; }
+.logo-card { flex: 0 1 340px; min-width: 240px; background: #fff; border-radius: 24px; padding: 24px; }
+.logo-card img { width: 100%; height: auto; display: block; }
+
+/* about */
+.about { display: flex; flex-wrap: wrap; gap: 48px; }
+.about .left { flex: 1 1 280px; }
+.about .right { flex: 2 1 480px; display: flex; flex-direction: column; gap: 16px; font-size: 18px; }
+.about .right p { margin: 0; }
+
+/* project cards */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; }
+.card img { width: 100%; height: 190px; object-fit: cover; display: block; }
+.card .noimg { height: 190px; background: #cfe3db; }
+.card .body { padding: 24px; display: flex; flex-direction: column; gap: 8px; }
+.card h3 { font-size: 22px; }
+.card p { margin: 0; color: var(--muted); }
+
+/* blog posts */
+.post { display: flex; flex-wrap: wrap; gap: 16px 32px; padding: 28px 0; border-top: 1px solid var(--line); }
+.post .date { flex: 0 0 140px; color: var(--muted); font-size: 15px; }
+.post .main { flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 8px; }
+.post h3 { font-size: 24px; }
+.post p { margin: 0; color: var(--muted); }
+.post img { max-width: 100%; max-height: 360px; border-radius: 12px; object-fit: cover; }
+.post details summary { cursor: pointer; color: var(--green); font-weight: 600; padding: 6px 0; }
+.post details .full { margin-top: 8px; color: var(--ink); }
+.empty { color: var(--muted); font-style: italic; }
+
+/* join form */
+.join { display: flex; flex-wrap: wrap; gap: 48px; }
+.join .left { flex: 1 1 300px; display: flex; flex-direction: column; gap: 16px; font-size: 18px; }
+.join .left p { margin: 0; }
+form.box { flex: 1 1 360px; background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 32px; display: flex; flex-direction: column; gap: 14px; }
+label { font-weight: 600; font-size: 15px; }
+input, textarea, select {
+  font: inherit; padding: 12px 14px; border: 1px solid #8a968f; border-radius: 8px; width: 100%; background: #fff; color: var(--ink);
+}
+textarea { min-height: 110px; resize: vertical; }
+.msg { margin: 0; font-weight: 600; }
+.msg.good { color: var(--green); }
+.msg.bad { color: #a32020; }
+
+/* donate */
+.methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin: 8px 0 0; }
+.method { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.35); border-radius: 12px; padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+.method strong { font-size: 18px; }
+.method .btn { align-self: flex-start; }
+
+/* footer */
+footer { padding: 48px; background: #16211e; color: #c9d4cf; }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; }
+footer .name { font-family: "Fraunces", serif; font-weight: 700; font-size: 20px; color: #fff; }
+footer .links { display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; }
+footer a { padding: 8px 0; }
+
+@media (max-width: 700px) {
+  header.top, section, .hero, footer { padding-left: 20px; padding-right: 20px; }
+  section { padding-top: 56px; padding-bottom: 56px; }
+  .hero h1 { font-size: 34px; }
+  h2 { font-size: 32px; }
+}
+
+/* ==========================================================
+   ADMIN PANEL LOOK (admin.html only)
+   ========================================================== */
+body.admin { background: #f4f1ea; }
+.admin-wrap { max-width: 860px; margin: 0 auto; padding: 24px 20px 80px; }
+.admin-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; }
+.admin-top h1 { font-size: 28px; color: var(--green); }
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tabs button { font: inherit; font-weight: 600; padding: 10px 18px; border-radius: 999px; border: 2px solid var(--green); background: #fff; color: var(--green); cursor: pointer; min-height: 44px; }
+.tabs button.on { background: var(--green); color: #fff; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 24px; margin-bottom: 24px; display: flex; flex-direction: column; gap: 12px; }
+.panel h2 { font-size: 24px; }
+.panel p.help { margin: 0; color: var(--muted); font-size: 15px; }
+.row-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid var(--line); flex-wrap: wrap; }
+.row-item img { width: 64px; height: 48px; object-fit: cover; border-radius: 6px; }
+.row-item span { flex: 1 1 200px; min-width: 0; }
+.row-item small { display: block; color: var(--muted); }
+.mini { font: inherit; font-size: 14px; font-weight: 600; padding: 8px 14px; border-radius: 8px; border: 1px solid var(--green); background: #fff; color: var(--green); cursor: pointer; min-height: 40px; }
+.mini.danger { border-color: #a32020; color: #a32020; }
+.status { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); padding: 12px 22px; border-radius: 999px; color: #fff; font-weight: 600; z-index: 50; }
+.status.good { background: var(--green); }
+.status.bad { background: #a32020; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* ==========================================================
+   MEET THE HEROES PAGE
+   ========================================================== */
+.person .photo { width: 100%; height: 260px; object-fit: cover; object-position: center top; display: block; }
+.person .initials { display: flex; align-items: center; justify-content: center; background: #cfe3db; color: var(--green); font-family: "Fraunces", serif; font-size: 72px; font-weight: 700; }
+.person .role { color: var(--green); font-weight: 600; margin: 0; }
+.person .bio { color: var(--muted); }
+.person-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.pill { font-size: 14px; font-weight: 600; color: var(--green); border: 1.5px solid var(--green); border-radius: 999px; padding: 8px 14px; min-height: 40px; display: inline-flex; align-items: center; }
+.pill:hover { background: var(--green); color: #fff; }
+
+/* Founder and co-founder: large card, photo beside the text */
+.person.big { display: flex; flex-wrap: wrap; gap: 32px; background: #fff; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; }
+.person.big .photo { flex: 0 0 340px; max-width: 100%; height: 400px; }
+.person.big .info { flex: 1 1 320px; min-width: 0; padding: 32px 32px 32px 0; display: flex; flex-direction: column; gap: 10px; justify-content: center; }
+.person.big h3 { font-size: 34px; }
+.person.big .bio { font-size: 18px; margin: 0; }
+@media (max-width: 700px) {
+  .person.big .photo { flex: 1 1 100%; height: 320px; }
+  .person.big .info { padding: 0 24px 24px; }
+}
+
+/* ==========================================================
+   ADMIN DASHBOARD (nicer look, overrides the basics above)
+   ========================================================== */
+.admin-bar { background: var(--green); color: #fff; }
+.admin-bar-in { max-width: 960px; margin: 0 auto; padding: 12px 20px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.admin-brand { display: flex; align-items: center; gap: 12px; font-family: "Fraunces", serif; font-weight: 700; font-size: 22px; }
+.admin-brand img { height: 44px; width: auto; background: #fff; border-radius: 10px; padding: 3px; }
+.bar-btn { font: inherit; font-weight: 600; font-size: 14px; color: #fff; background: transparent; border: 1.5px solid rgba(255,255,255,.7); border-radius: 999px; padding: 8px 18px; min-height: 40px; cursor: pointer; display: inline-flex; align-items: center; }
+.bar-btn:hover { background: rgba(255,255,255,.15); }
+.bar-btn[hidden] { display: none; }
+
+.admin-wrap { max-width: 960px; }
+#login-form { max-width: 420px; margin: 48px auto; }
+
+.tabs { position: sticky; top: 0; z-index: 20; background: #f4f1ea; padding: 12px 0; margin-bottom: 8px; flex-wrap: nowrap; overflow-x: auto; }
+.tabs button { white-space: nowrap; }
+.tabs button.on { background: var(--green); color: #fff; box-shadow: 0 2px 0 var(--gold); }
+
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat { font: inherit; text-align: left; background: #fff; border: 1px solid var(--line); border-top: 4px solid var(--gold); border-radius: 14px; padding: 16px 18px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; color: var(--ink); }
+.stat strong { font-family: "Fraunces", serif; font-size: 36px; color: var(--green); line-height: 1.1; }
+.stat span { color: var(--muted); font-size: 14px; font-weight: 600; }
+.stat:hover { border-color: var(--green); border-top-color: var(--gold); }
+.tab[hidden] { display: none; }
+
+/* Fixes: anything marked hidden must really be hidden; tabs wrap instead of being cut off */
+[hidden] { display: none !important; }
+.tabs { flex-wrap: wrap; overflow-x: visible; position: static; }
+@media (min-width: 700px) { .tabs { position: sticky; } }

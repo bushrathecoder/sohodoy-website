@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sohodoy | Youth-led humanitarian initiative</title>
+<meta name="description" content="Sohodoy is a youth-led humanitarian initiative promoting peaceful coexistence, human rights and sustainable peace.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Noto+Sans+Bengali:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="top">
+  <a class="brand" href="#top"><img src="logo.png" alt=""><span>Sohodoy</span></a>
+  <nav>
+    <a class="link" href="#about">About</a>
+    <a class="link" href="#projects">Projects</a>
+    <a class="link" href="#blogs">Blogs</a>
+    <a class="link" href="heroes.html">Meet the Heroes</a>
+    <a class="btn btn-outline" href="#join">Join Us</a>
+    <a class="btn btn-gold" href="#donate" style="padding:10px 24px;min-height:44px">Donate</a>
+  </nav>
+</header>
+
+<!-- ============ HERO (big banner) ============ -->
+<section id="top" class="hero green">
+  <div class="wrap">
+    <div class="text">
+      <p class="tagline">মানুষের পাশে, মানবতার পথে</p>
+      <h1 id="hero-headline">A youth-led initiative building a peaceful, inclusive and just society</h1>
+      <p class="lead" id="hero-text">Through community-based awareness and educational activities, we empower children, young people and underserved communities, and promote human rights and peaceful coexistence.</p>
+      <div class="buttons">
+        <a class="btn btn-gold" href="#donate">Donate now</a>
+        <a class="btn btn-outline-light" href="#join">Join us</a>
+      </div>
+    </div>
+    <div class="logo-card"><img src="logo.png" alt="Sohodoy logo"></div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section id="about">
+  <div class="wrap about">
+    <div class="left"><h2>About us</h2></div>
+    <div class="right pre">
+      <p id="about-1">Sohodoy is a youth-led humanitarian initiative. We promote peaceful coexistence, human rights and sustainable peace through community-based awareness and educational activities.</p>
+      <p id="about-2">Our mission is to empower children, young people and underserved communities to build a more inclusive, just and peaceful society.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROJECTS (filled from the admin panel) ============ -->
+<section id="projects" class="sand">
+  <div class="wrap">
+    <div class="section-head"><h2>Our projects</h2></div>
+    <div class="cards" id="projects-list"><p class="empty">Projects are coming soon.</p></div>
+  </div>
+</section>
+
+<!-- ============ BLOGS (filled from the admin panel) ============ -->
+<section id="blogs">
+  <div class="wrap">
+    <div class="section-head"><h2>From our blog</h2></div>
+    <div id="blogs-list"><p class="empty">Blog posts are coming soon.</p></div>
+  </div>
+</section>
+
+<!-- ============ JOIN US ============ -->
+<section id="join" class="sand">
+  <div class="wrap join">
+    <div class="left">
+      <h2>Join us</h2>
+      <p>Be part of a youth-led movement for peace and human rights. Tell us a little about yourself and we will get in touch.</p>
+    </div>
+    <form class="box" id="join-form">
+      <label for="j-name">Full name</label>
+      <input id="j-name" name="name" type="text" required maxlength="200">
+      <label for="j-email">Email</label>
+      <input id="j-email" name="email" type="email" required maxlength="200">
+      <label for="j-msg">Message (optional)</label>
+      <textarea id="j-msg" name="message" maxlength="2000"></textarea>
+      <button class="btn btn-green" type="submit">Send my request</button>
+      <p class="msg" id="join-msg" hidden></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ DONATE (filled from the admin panel) ============ -->
+<section id="donate" class="green">
+  <div class="wrap" style="display:flex;flex-direction:column;gap:20px">
+    <h2 id="donate-heading">Support our work</h2>
+    <p class="pre" id="donate-text" style="margin:0;font-size:18px;max-width:640px;color:#e4f0ec">Donation details will be published soon.</p>
+    <div class="methods" id="donate-methods"></div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="name">Sohodoy</div>
+      <div id="contact-line"></div>
+    </div>
+    <div class="links">
+      <a href="#about">About</a><a href="#projects">Projects</a><a href="#blogs">Blogs</a><a href="heroes.html">Meet the Heroes</a><a href="#join">Join Us</a><a href="#donate">Donate</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="site.js"></script>
+</body>
+</html>

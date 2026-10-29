@@ -1,0 +1,7 @@
+{
+  "name": "sohodoy-website",
+  "private": true,
+  "scripts": {
+    "build": "node build.js"
+  }
+}

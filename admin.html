@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sohodoy Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="admin">
+<!-- ============ TOP BAR ============ -->
+<header class="admin-bar">
+  <div class="admin-bar-in">
+    <div class="admin-brand"><img src="logo.png" alt=""><span>Sohodoy dashboard</span></div>
+    <div class="actions">
+      <a class="bar-btn" href="index.html" target="_blank">View website</a>
+      <button class="bar-btn" id="logout" hidden>Log out</button>
+    </div>
+  </div>
+</header>
+
+<div class="admin-wrap">
+
+  <!-- ============ LOGIN ============ -->
+  <form class="panel" id="login-form">
+    <h2>Log in</h2>
+    <p class="help">Only the Sohodoy admin can manage the website.</p>
+    <label for="email">Email</label>
+    <input id="email" type="email" required autocomplete="username">
+    <label for="password">Password</label>
+    <input id="password" type="password" required autocomplete="current-password">
+    <button class="btn btn-green" type="submit">Log in</button>
+  </form>
+
+  <!-- ============ THE DASHBOARD (visible after login) ============ -->
+  <div id="app" hidden>
+
+    <nav class="tabs" id="tabs" aria-label="Dashboard sections">
+      <button data-go="overview" class="on">Overview</button>
+      <button data-go="projects">Projects</button>
+      <button data-go="posts">Blog posts</button>
+      <button data-go="heroes">Meet the heroes</button>
+      <button data-go="donate">Donations</button>
+      <button data-go="text">Website text</button>
+      <button data-go="requests">Join requests</button>
+    </nav>
+
+    <!-- ---- OVERVIEW ---- -->
+    <div class="tab" id="tab-overview">
+      <div class="stats">
+        <button class="stat" data-go="projects"><strong id="stat-projects">-</strong><span>Projects</span></button>
+        <button class="stat" data-go="posts"><strong id="stat-posts">-</strong><span>Blog posts</span></button>
+        <button class="stat" data-go="heroes"><strong id="stat-team">-</strong><span>Team members</span></button>
+        <button class="stat" data-go="donate"><strong id="stat-donate">-</strong><span>Donation methods</span></button>
+        <button class="stat" data-go="requests"><strong id="stat-requests">-</strong><span>Join requests</span></button>
+      </div>
+
+      <div class="panel">
+        <h2>Quick actions</h2>
+        <div class="actions">
+          <button class="btn btn-green" data-go="projects" data-focus="p-title">Add project</button>
+          <button class="btn btn-green" data-go="posts" data-focus="b-title">Write blog post</button>
+          <button class="btn btn-green" data-go="heroes" data-focus="h-name">Add team member</button>
+          <button class="btn btn-green" data-go="donate" data-focus="d-name">Add donation method</button>
+          <a class="btn btn-gold" href="index.html" target="_blank">View website</a>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>To do</h2>
+        <div id="checklist"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Latest join requests</h2>
+        <div id="latest-requests"></div>
+        <div class="actions"><button class="mini" data-go="requests">See all requests</button></div>
+      </div>
+    </div>
+
+    <!-- ---- PROJECTS ---- -->
+    <div class="tab" id="tab-projects" hidden>
+      <form class="panel" id="project-form">
+        <h2>Add or edit a project</h2>
+        <input type="hidden" name="id">
+        <input type="hidden" name="image_url">
+        <label for="p-title">Project title</label>
+        <input id="p-title" name="title" required>
+        <label for="p-desc">Description</label>
+        <textarea id="p-desc" name="description"></textarea>
+        <label for="p-img">Picture (JPG or PNG, under 5 MB)</label>
+        <input id="p-img" name="image" type="file" accept="image/*">
+        <p class="help" id="p-img-note"></p>
+        <label for="p-sort">Order on the website (1 shows first)</label>
+        <input id="p-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save project</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your projects</h2><div id="project-list"></div></div>
+    </div>
+
+    <!-- ---- BLOG POSTS ---- -->
+    <div class="tab" id="tab-posts" hidden>
+      <form class="panel" id="post-form">
+        <h2>Add or edit a blog post</h2>
+        <input type="hidden" name="id">
+        <input type="hidden" name="image_url">
+        <label for="b-title">Title</label>
+        <input id="b-title" name="title" required>
+        <label for="b-date">Date</label>
+        <input id="b-date" name="published_at" type="date">
+        <label for="b-sum">Short summary (shown on the page)</label>
+        <textarea id="b-sum" name="summary"></textarea>
+        <label for="b-body">Full post (shown when someone clicks "Read more")</label>
+        <textarea id="b-body" name="body" style="min-height:220px"></textarea>
+        <label for="b-img">Picture (optional)</label>
+        <input id="b-img" name="image" type="file" accept="image/*">
+        <p class="help" id="b-img-note"></p>
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save post</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your blog posts</h2><div id="post-list"></div></div>
+    </div>
+
+    <!-- ---- MEET THE HEROES ---- -->
+    <div class="tab" id="tab-heroes" hidden>
+      <form class="panel" id="hero-form">
+        <h2>Add or edit a team member</h2>
+        <p class="help">Founder and Co-founder can each be only one person. Core team can have many.</p>
+        <input type="hidden" name="id">
+        <input type="hidden" name="image_url">
+        <label for="h-group">Group</label>
+        <select id="h-group" name="group_name">
+          <option value="founder">Founder</option>
+          <option value="cofounder">Co-founder</option>
+          <option value="core" selected>Core team</option>
+        </select>
+        <label for="h-name">Name</label>
+        <input id="h-name" name="name" required>
+        <label for="h-role">Role (e.g. Founder, Programs Lead)</label>
+        <input id="h-role" name="role">
+        <label for="h-img">Photo (JPG or PNG, under 5 MB)</label>
+        <input id="h-img" name="image" type="file" accept="image/*">
+        <p class="help" id="h-img-note"></p>
+        <label for="h-bio">Short bio</label>
+        <textarea id="h-bio" name="bio"></textarea>
+        <label for="h-email">Email</label>
+        <input id="h-email" name="email" type="email">
+        <label for="h-web">Portfolio website or CV link (starts with https://)</label>
+        <input id="h-web" name="website_url" type="url">
+        <label for="h-fb">Facebook link</label>
+        <input id="h-fb" name="facebook_url" type="url">
+        <label for="h-li">LinkedIn link</label>
+        <input id="h-li" name="linkedin_url" type="url">
+        <label for="h-other">Other links (GitHub, anything else). One per line, like: GitHub | https://github.com/name</label>
+        <textarea id="h-other" name="other_links" style="min-height:80px"></textarea>
+        <label for="h-sort">Order inside the group (1 shows first)</label>
+        <input id="h-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save team member</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your team</h2><div id="hero-list"></div></div>
+    </div>
+
+    <!-- ---- DONATIONS ---- -->
+    <div class="tab" id="tab-donate" hidden>
+      <form class="panel" id="donate-form">
+        <h2>Add or edit a way to donate</h2>
+        <p class="help">Each one appears as a card on the Donate section. Examples: bKash, Bank transfer, PayPal.</p>
+        <input type="hidden" name="id">
+        <label for="d-name">Name (e.g. bKash)</label>
+        <input id="d-name" name="name" required>
+        <label for="d-details">Details (e.g. account number, instructions)</label>
+        <textarea id="d-details" name="details"></textarea>
+        <label for="d-link">Payment link (optional, starts with https://)</label>
+        <input id="d-link" name="link" type="url">
+        <label for="d-btn">Button text if you added a link (e.g. Donate with PayPal)</label>
+        <input id="d-btn" name="button_label">
+        <label for="d-sort">Order (1 shows first)</label>
+        <input id="d-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your donation methods</h2><div id="donate-list"></div></div>
+    </div>
+
+    <!-- ---- WEBSITE TEXT ---- -->
+    <div class="tab" id="tab-text" hidden>
+      <form class="panel" id="settings-form">
+        <h2>Website text</h2>
+        <p class="help">Leave a box empty to keep the default text.</p>
+        <label>Big headline on the home page</label>
+        <textarea name="hero_headline" style="min-height:70px"></textarea>
+        <label>Text under the headline</label>
+        <textarea name="hero_text"></textarea>
+        <label>About us, first paragraph</label>
+        <textarea name="about_1"></textarea>
+        <label>About us, second paragraph</label>
+        <textarea name="about_2"></textarea>
+        <label>Donate section heading</label>
+        <input name="donate_heading">
+        <label>Donate section text (write what donations make possible)</label>
+        <textarea name="donate_text"></textarea>
+        <label>Contact email (shown in the footer)</label>
+        <input name="contact_email">
+        <label>Contact phone</label>
+        <input name="contact_phone">
+        <label>Address</label>
+        <input name="contact_address">
+        <button class="btn btn-green" type="submit">Save website text</button>
+      </form>
+    </div>
+
+    <!-- ---- JOIN REQUESTS ---- -->
+    <div class="tab" id="tab-requests" hidden>
+      <div class="panel"><h2>People who want to join</h2><div id="request-list"></div></div>
+    </div>
+  </div>
+</div>
+
+<div class="status" id="status" hidden></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
