@@ -23,6 +23,8 @@ Before you start, unzip `sohodoy-website.zip` so you have a folder called `sohod
 5. You should see "Success". (Run it only once.)
 6. Now do the same with the second file, `supabase-heroes.sql` (for the Meet the Heroes page). It has no email to change. Click **New query**, paste it, **Run**. 7. Do the same once more with `supabase-contact.sql` (for the Contact page). No email to change.
 
+8. And once more with `supabase-about-map.sql` (for the About cards and the map). No email to change.
+
 (If you already set up the site earlier, run only the files you haven't run yet. Each file is run **once**.)
 
 ## Step 3: Create your admin login
@@ -47,6 +49,8 @@ Before you start, unzip `sohodoy-website.zip` so you have a folder called `sohod
    - **Projects**: add a title, description and picture.
    - **Blog posts**: add a title, summary, full post and picture.
    - **Meet the heroes**: add the founder, co-founder and core team (photo, name, role, bio, email, portfolio/CV, Facebook, LinkedIn and any other links). There can be only one founder and one co-founder.
+   - **About**: About text, Mission, Vision and the "What makes us different" cards.
+   - **Map**: pins on the map of Bangladesh (pick a district, or type an exact position).
    - **Contact**: your email, phone, WhatsApp, address and social links (LinkedIn, Facebook, Instagram and more).
    - **Messages**: messages people send from the Contact page.
    - **Donations**: add each way to donate (name, account details, optional payment link).
@@ -73,6 +77,8 @@ Colors are at the top of `style.css`. If you edit a file, re-upload the folder: 
 | `admin.html` / `admin.js` | The admin panel |
 | `heroes.html` / `heroes.js` | The Meet the Heroes page |
 | `contact.html` / `contact.js` / `footer.js` | The Contact page and footer social links |
+| `districts.js` | The 64 districts of Bangladesh (used for map pins) |
+| `supabase-about-map.sql` | One-time database setup for About cards and map pins |
 | `supabase-contact.sql` | One-time database setup for the Contact page |
 | `supabase-heroes.sql` | One-time database setup for the team page |
 | `style.css` | Colors, fonts, layout |

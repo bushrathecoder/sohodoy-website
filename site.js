@@ -27,11 +27,80 @@ function showSettings(s) {
   set("hero-text", "hero_text");
   set("about-1", "about_1");
   set("about-2", "about_2");
+  showMissionVision(s);
   set("donate-heading", "donate_heading");
   set("donate-text", "donate_text");
 
   const parts = [s.contact_email, s.contact_phone, s.contact_address].filter(Boolean);
   $("contact-line").textContent = parts.join(" · ");
+}
+
+// ---------- Mission and Vision cards (hidden until you write them) ----------
+function showMissionVision(s) {
+  const card = (cardId, textId, value) => {
+    if (!value) return false;
+    $(textId).textContent = value;
+    $(cardId).hidden = false;
+    return true;
+  };
+  const a = card("mission-card", "about-mission", s.about_mission);
+  const b = card("vision-card", "about-vision", s.about_vision);
+  $("mv-cards").hidden = !(a || b);
+}
+
+// ---------- "What makes us different" cards ----------
+function showDifferentiators(rows) {
+  if (!rows.length) return;
+  const box = $("diff-list");
+  box.innerHTML = "";
+  rows.forEach((d) => {
+    const card = make("article", "diff-card");
+    card.append(make("h4", "", d.title));
+    if (d.description) card.append(make("p", "pre", d.description));
+    box.append(card);
+  });
+  $("diff-block").hidden = false;
+}
+
+// ---------- Map of Bangladesh ----------
+let map = null;
+function startMap() {
+  if (!window.L) return; // the map library did not load: skip quietly
+  map = L.map("map", {
+    scrollWheelZoom: false,            // so scrolling the page does not zoom the map
+    minZoom: 6,
+    maxBounds: [[19.5, 87.0], [27.5, 93.8]],
+    maxBoundsViscosity: 1,
+  }).fitBounds([[20.6, 88.0], [26.7, 92.7]]);
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    maxZoom: 17,
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
+  map.on("click", () => map.scrollWheelZoom.enable());
+  map.on("mouseout", () => map.scrollWheelZoom.disable());
+}
+
+// Where a pin goes: the exact position if you typed one, otherwise its district.
+function pinPosition(p) {
+  if (p.latitude != null && p.longitude != null) return [p.latitude, p.longitude];
+  const d = DISTRICTS.find((x) => x[0] === p.district);
+  return d ? [d[1], d[2]] : null;
+}
+
+function showPins(rows) {
+  if (!map) return;
+  let shown = 0;
+  rows.forEach((p) => {
+    const pos = pinPosition(p);
+    if (!pos) return;
+    const pin = L.circleMarker(pos, { radius: 10, color: "#ffffff", weight: 3, fillColor: "#1b5e3f", fillOpacity: 1 }).addTo(map);
+    const popup = make("div", "pin-popup");
+    popup.append(make("strong", "", p.name));
+    if (p.description) popup.append(make("p", "pre", p.description));
+    pin.bindPopup(popup);
+    shown++;
+  });
+  if (!shown) $("map-caption").textContent = "Our locations will appear here soon.";
 }
 
 // ---------- Projects ----------
@@ -107,11 +176,13 @@ function showMethods(rows) {
 async function loadSite() {
   if (!db) return; // not connected yet: default text stays on screen
   try {
-    const [settings, projects, posts, methods] = await Promise.all([
+    const [settings, projects, posts, methods, diffs, pins] = await Promise.all([
       db.from("settings").select("*"),
       db.from("projects").select("*").order("sort", { ascending: true }).order("created_at", { ascending: false }),
       db.from("posts").select("*").order("published_at", { ascending: false }),
       db.from("donation_methods").select("*").order("sort", { ascending: true }),
+      db.from("differentiators").select("*").order("sort", { ascending: true }),
+      db.from("map_pins").select("*").order("sort", { ascending: true }),
     ]);
     const s = {};
     (settings.data || []).forEach((r) => (s[r.key] = r.value));
@@ -119,6 +190,8 @@ async function loadSite() {
     showProjects(projects.data || []);
     showPosts(posts.data || []);
     showMethods(methods.data || []);
+    showDifferentiators(diffs.data || []);
+    showPins(pins.data || []);
   } catch (err) {
     console.error("Could not load the site content", err);
   }
@@ -150,4 +223,5 @@ $("join-form").addEventListener("submit", async (e) => {
   }
 });
 
+startMap();
 loadSite();

@@ -42,6 +42,8 @@
       <button data-go="projects">Projects</button>
       <button data-go="posts">Blog posts</button>
       <button data-go="heroes">Meet the heroes</button>
+      <button data-go="about">About</button>
+      <button data-go="map">Map</button>
       <button data-go="donate">Donations</button>
       <button data-go="contact">Contact</button>
       <button data-go="messages">Messages</button>
@@ -197,6 +199,66 @@
       <div class="panel"><h2>Your donation methods</h2><div id="donate-list"></div></div>
     </div>
 
+    <!-- ---- ABOUT ---- -->
+    <div class="tab" id="tab-about" hidden>
+      <form class="panel settings-form" id="about-settings-form">
+        <h2>About us text</h2>
+        <p class="help">Shown in the About section of the home page. Mission and Vision appear as two cards (hidden while empty).</p>
+        <label for="a-1">About us, first paragraph</label>
+        <textarea id="a-1" name="about_1"></textarea>
+        <label for="a-2">About us, second paragraph</label>
+        <textarea id="a-2" name="about_2"></textarea>
+        <label for="a-mission">Our mission</label>
+        <textarea id="a-mission" name="about_mission"></textarea>
+        <label for="a-vision">Our vision</label>
+        <textarea id="a-vision" name="about_vision"></textarea>
+        <button class="btn btn-green" type="submit">Save About text</button>
+      </form>
+
+      <form class="panel" id="diff-form">
+        <h2>Add or edit a "What makes us different" card</h2>
+        <p class="help">A short title and one or two lines. Example: "Youth-led" and "Run by young people from the communities we serve."</p>
+        <input type="hidden" name="id">
+        <label for="df-title">Title</label>
+        <input id="df-title" name="title" required>
+        <label for="df-desc">Description</label>
+        <textarea id="df-desc" name="description" style="min-height:90px"></textarea>
+        <label for="df-sort">Order (1 shows first)</label>
+        <input id="df-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save card</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your cards</h2><div id="diff-admin-list"></div></div>
+    </div>
+
+    <!-- ---- MAP ---- -->
+    <div class="tab" id="tab-map" hidden>
+      <form class="panel" id="map-form">
+        <h2>Add or edit a map pin</h2>
+        <p class="help">Pick a district and the pin is placed there. For an exact spot, also fill latitude and longitude (in Google Maps, right-click the place and click the numbers to copy them).</p>
+        <input type="hidden" name="id">
+        <label for="m-district">District</label>
+        <select id="m-district" name="district"><option value="">(none, I will type an exact position)</option></select>
+        <label for="m-name">Pin name (e.g. Dhaka)</label>
+        <input id="m-name" name="name" required>
+        <label for="m-desc">Short description (e.g. Peace workshops in schools)</label>
+        <textarea id="m-desc" name="description" style="min-height:90px"></textarea>
+        <label for="m-lat">Exact latitude (optional)</label>
+        <input id="m-lat" name="latitude" type="number" step="any" data-nullable>
+        <label for="m-lng">Exact longitude (optional)</label>
+        <input id="m-lng" name="longitude" type="number" step="any" data-nullable>
+        <label for="m-sort">Order (1 shows first)</label>
+        <input id="m-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save pin</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your pins</h2><div id="map-list"></div></div>
+    </div>
+
     <!-- ---- CONTACT ---- -->
     <div class="tab" id="tab-contact" hidden>
       <form class="panel settings-form" id="contact-settings-form">
@@ -247,10 +309,6 @@
         <textarea name="hero_headline" style="min-height:70px"></textarea>
         <label>Text under the headline</label>
         <textarea name="hero_text"></textarea>
-        <label>About us, first paragraph</label>
-        <textarea name="about_1"></textarea>
-        <label>About us, second paragraph</label>
-        <textarea name="about_2"></textarea>
         <label>Donate section heading</label>
         <input name="donate_heading">
         <label>Donate section text (write what donations make possible)</label>
@@ -270,6 +328,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
+<script src="districts.js"></script>
 <script src="admin.js"></script>
 </body>
 </html>

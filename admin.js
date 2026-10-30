@@ -97,7 +97,7 @@ async function loadOverview() {
     const { count } = await db.from(table).select("*", { count: "exact", head: true });
     return count || 0;
   };
-  const [projects, posts, donate, social, messages] = await Promise.all([count("projects"), count("posts"), count("donation_methods"), count("social_links"), count("contact_messages")]);
+  const [projects, posts, donate, social, messages, diffs, pins] = await Promise.all([count("projects"), count("posts"), count("donation_methods"), count("social_links"), count("contact_messages"), count("differentiators"), count("map_pins")]);
   const team = (await db.from("team_members").select("group_name")).data || [];
   const settings = (await db.from("settings").select("*")).data || [];
   const requests = await db.from("join_requests").select("*", { count: "exact" }).order("created_at", { ascending: false }).limit(5);
@@ -117,6 +117,9 @@ async function loadOverview() {
     [!has("founder"), "Add the founder", "heroes"],
     [!has("cofounder"), "Add the co-founder", "heroes"],
     [!has("core"), "Add your core team", "heroes"],
+    [!s.about_mission || !s.about_vision, "Write your Mission and Vision", "about"],
+    [diffs === 0, "Add \"What makes us different\" cards", "about"],
+    [pins === 0, "Add pins to the map", "map"],
     [projects === 0, "Add your first project", "projects"],
     [posts === 0, "Write your first blog post", "posts"],
     [donate === 0, "Add your donation details", "donate"],
@@ -230,9 +233,15 @@ function manager(cfg) {
     const row = {};
     for (const el of form.elements) {
       if (!el.name || el.name === "id" || el.type === "file" || el.type === "submit") continue;
-      if (el.type === "number") row[el.name] = Number(el.value || 0);
+      if (el.type === "number") row[el.name] = el.value === "" && el.dataset.nullable !== undefined ? null : Number(el.value || 0);
       else if (el.type === "date" && !el.value) continue;
       else row[el.name] = el.value;
+    }
+
+    // Some forms check their own rules first (for example: a map pin needs a place).
+    if (cfg.validate) {
+      const problem = cfg.validate(row);
+      if (problem) { button.disabled = false; return say(problem, true); }
     }
 
     // Upload a new picture if one was chosen.
@@ -265,11 +274,24 @@ function manager(cfg) {
   return { reload };
 }
 
+// Fill the district list in the map form.
+DISTRICTS.forEach(([name]) => {
+  const option = document.createElement("option");
+  option.value = name;
+  option.textContent = name;
+  $("m-district").append(option);
+});
+
 const managers = [
   manager({ table: "projects", form: "project-form", list: "project-list", titleField: "title", sortBy: "sort", ascending: true }),
   manager({ table: "posts", form: "post-form", list: "post-list", titleField: "title", sortBy: "published_at", ascending: false }),
   manager({ table: "team_members", form: "hero-form", list: "hero-list", titleField: "name", subField: "role", sortBy: "sort", ascending: true }),
   manager({ table: "donation_methods", form: "donate-form", list: "donate-list", titleField: "name", sortBy: "sort", ascending: true }),
+  manager({ table: "differentiators", form: "diff-form", list: "diff-admin-list", titleField: "title", subField: "description", sortBy: "sort", ascending: true }),
+  manager({
+    table: "map_pins", form: "map-form", list: "map-list", titleField: "name", subField: "district", sortBy: "sort", ascending: true,
+    validate: (row) => (row.district || (row.latitude != null && row.longitude != null) ? null : "Pick a district, or type both latitude and longitude."),
+  }),
   manager({ table: "social_links", form: "social-form", list: "social-list", titleField: "name", subField: "url", sortBy: "sort", ascending: true }),
 ];
 

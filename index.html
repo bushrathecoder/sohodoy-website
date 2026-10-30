@@ -7,6 +7,7 @@
 <meta name="description" content="Sohodoy is a youth-led humanitarian initiative promoting peaceful coexistence, human rights and sustainable peace.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Noto+Sans+Bengali:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -37,7 +38,10 @@
         <a class="btn btn-outline-light" href="#join">Join us</a>
       </div>
     </div>
-    <div class="logo-card"><img src="logo.png" alt="Sohodoy logo"></div>
+    <div class="map-card">
+      <div id="map" role="region" aria-label="Map of Bangladesh showing where Sohodoy works"></div>
+      <p class="map-caption" id="map-caption">Where Sohodoy works. Click a pin to learn more.</p>
+    </div>
   </div>
 </section>
 
@@ -48,6 +52,24 @@
     <div class="right pre">
       <p id="about-1">Sohodoy is a youth-led humanitarian initiative. We promote peaceful coexistence, human rights and sustainable peace through community-based awareness and educational activities.</p>
       <p id="about-2">Our mission is to empower children, young people and underserved communities to build a more inclusive, just and peaceful society.</p>
+    </div>
+  </div>
+
+  <!-- Mission, Vision and "What makes us different" (filled from the admin panel) -->
+  <div class="wrap about-more">
+    <div class="mv" id="mv-cards" hidden>
+      <article class="mv-card mission" id="mission-card" hidden>
+        <h3>Our mission</h3>
+        <p class="pre" id="about-mission"></p>
+      </article>
+      <article class="mv-card vision" id="vision-card" hidden>
+        <h3>Our vision</h3>
+        <p class="pre" id="about-vision"></p>
+      </article>
+    </div>
+    <div id="diff-block" hidden>
+      <h3 class="sub-heading">What makes us different</h3>
+      <div class="diff-grid" id="diff-list"></div>
     </div>
   </div>
 </section>
@@ -111,9 +133,11 @@
   </div>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="config.js"></script>
 <script src="footer.js"></script>
+<script src="districts.js"></script>
 <script src="site.js"></script>
 </body>
 </html>
