@@ -4,7 +4,8 @@ Website and admin dashboard for **Sohodoy**, a youth-led humanitarian initiative
 
 ## Features
 - Public site: About, Projects, Blogs, Meet the Heroes (founder, co-founder, core team), Join Us form and Donate section
-- Private admin dashboard (`/admin.html`): manage projects, blog posts, team members, donation methods, website text and join requests, with picture uploads
+- Contact page with email, phone, WhatsApp, address, social links and a message form
+- Private admin dashboard (`/admin.html`): manage projects, blog posts, team members, donation methods, contact details, social links, messages, website text and join requests, with picture uploads
 - Plain HTML, CSS and JavaScript, with no build framework
 
 ## How it works
@@ -23,5 +24,6 @@ See `SETUP-GUIDE.md`, then `DEPLOY-GUIDE.md` for GitHub and Vercel.
 | `admin.html`, `admin.js` | Admin dashboard |
 | `site.js`, `heroes.js` | Load content into the public pages |
 | `style.css` | Look and feel |
-| `supabase-setup.sql`, `supabase-heroes.sql` | One-time database setup |
+| `contact.html`, `contact.js`, `footer.js` | Contact page and footer social links |
+| `supabase-setup.sql`, `supabase-heroes.sql`, `supabase-contact.sql` | One-time database setup |
 | `build.js`, `vercel.json` | Vercel build settings |

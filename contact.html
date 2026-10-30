@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Contact | Sohodoy</title>
+<meta name="description" content="Get in touch with Sohodoy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&family=Noto+Sans+Bengali:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="top">
+  <a class="brand" href="index.html"><img src="logo.png" alt=""><span>Sohodoy</span></a>
+  <nav>
+    <a class="link" href="index.html#about">About</a>
+    <a class="link" href="index.html#projects">Projects</a>
+    <a class="link" href="index.html#blogs">Blogs</a>
+    <a class="link" href="heroes.html">Meet the Heroes</a>
+    <a class="link" href="contact.html" aria-current="page"><strong>Contact</strong></a>
+    <a class="btn btn-outline" href="index.html#join">Join Us</a>
+    <a class="btn btn-gold" href="index.html#donate" style="padding:10px 24px;min-height:44px">Donate</a>
+  </nav>
+</header>
+
+<!-- ============ PAGE TITLE ============ -->
+<section class="green" style="padding:72px 48px">
+  <div class="wrap" style="display:flex;flex-direction:column;gap:16px">
+    <h1 style="font-size:48px">Contact us</h1>
+    <p class="pre" id="contact-intro" style="margin:0;font-size:19px;max-width:640px;color:#e4f0ec">We would love to hear from you. Reach out with a question, an idea or an offer to help.</p>
+  </div>
+</section>
+
+<!-- ============ DETAILS + MESSAGE FORM ============ -->
+<section>
+  <div class="wrap contact-grid">
+    <div class="contact-info">
+      <h2>Get in touch</h2>
+      <div id="contact-details" class="detail-list"></div>
+      <div id="social-block" hidden>
+        <h3 style="margin:16px 0 12px">Follow us</h3>
+        <div class="person-links" id="contact-social"></div>
+      </div>
+      <p class="empty" id="contact-empty">Our contact details will be published here soon.</p>
+    </div>
+
+    <form class="box" id="contact-form">
+      <h3 style="font-size:24px">Send us a message</h3>
+      <label for="c-name">Your name</label>
+      <input id="c-name" name="name" type="text" required maxlength="200">
+      <label for="c-email">Your email</label>
+      <input id="c-email" name="email" type="email" required maxlength="200">
+      <label for="c-msg">Message</label>
+      <textarea id="c-msg" name="message" required maxlength="3000" style="min-height:150px"></textarea>
+      <button class="btn btn-green" type="submit">Send message</button>
+      <p class="msg" id="contact-msg" hidden></p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <div>
+      <div class="name">Sohodoy</div>
+      <div id="contact-line"></div>
+      <div id="footer-social" class="footer-social"></div>
+    </div>
+    <div class="links">
+      <a href="index.html#about">About</a><a href="index.html#projects">Projects</a><a href="index.html#blogs">Blogs</a><a href="heroes.html">Meet the Heroes</a><a href="contact.html">Contact</a><a href="index.html#join">Join Us</a><a href="index.html#donate">Donate</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="config.js"></script>
+<script src="footer.js"></script>
+<script src="contact.js"></script>
+</body>
+</html>

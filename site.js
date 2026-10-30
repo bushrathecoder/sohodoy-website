@@ -136,9 +136,9 @@ $("join-form").addEventListener("submit", async (e) => {
   }
   const f = e.target;
   const { error } = await db.from("join_requests").insert({
-    name: f.name.value,
-    email: f.email.value,
-    message: f.message.value,
+    name: f.elements.name.value,
+    email: f.elements.email.value,
+    message: f.elements.message.value,
   });
   if (error) {
     msg.className = "msg bad";

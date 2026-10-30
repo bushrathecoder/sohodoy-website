@@ -7,7 +7,7 @@
 // ============================================================
 const fs = require("fs");
 
-const files = ["index.html", "heroes.html", "admin.html", "site.js", "heroes.js", "admin.js", "style.css", "logo.png"];
+const files = ["index.html", "heroes.html", "contact.html", "admin.html", "site.js", "heroes.js", "contact.js", "footer.js", "admin.js", "style.css", "logo.png"];
 
 const url = process.env.SUPABASE_URL;
 const key = process.env.SUPABASE_ANON_KEY;

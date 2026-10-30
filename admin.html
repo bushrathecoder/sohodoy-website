@@ -43,6 +43,8 @@
       <button data-go="posts">Blog posts</button>
       <button data-go="heroes">Meet the heroes</button>
       <button data-go="donate">Donations</button>
+      <button data-go="contact">Contact</button>
+      <button data-go="messages">Messages</button>
       <button data-go="text">Website text</button>
       <button data-go="requests">Join requests</button>
     </nav>
@@ -54,6 +56,7 @@
         <button class="stat" data-go="posts"><strong id="stat-posts">-</strong><span>Blog posts</span></button>
         <button class="stat" data-go="heroes"><strong id="stat-team">-</strong><span>Team members</span></button>
         <button class="stat" data-go="donate"><strong id="stat-donate">-</strong><span>Donation methods</span></button>
+        <button class="stat" data-go="messages"><strong id="stat-messages">-</strong><span>Messages</span></button>
         <button class="stat" data-go="requests"><strong id="stat-requests">-</strong><span>Join requests</span></button>
       </div>
 
@@ -194,9 +197,50 @@
       <div class="panel"><h2>Your donation methods</h2><div id="donate-list"></div></div>
     </div>
 
+    <!-- ---- CONTACT ---- -->
+    <div class="tab" id="tab-contact" hidden>
+      <form class="panel settings-form" id="contact-settings-form">
+        <h2>Contact details</h2>
+        <p class="help">Shown on the Contact page and in the footer. Leave a box empty to hide it.</p>
+        <label for="c-intro">Short welcome text on the Contact page</label>
+        <textarea id="c-intro" name="contact_intro"></textarea>
+        <label for="c-email">Email</label>
+        <input id="c-email" name="contact_email" type="email">
+        <label for="c-phone">Phone</label>
+        <input id="c-phone" name="contact_phone">
+        <label for="c-wa">WhatsApp number (with country code, e.g. +8801XXXXXXXXX)</label>
+        <input id="c-wa" name="contact_whatsapp">
+        <label for="c-addr">Address or location</label>
+        <input id="c-addr" name="contact_address">
+        <button class="btn btn-green" type="submit">Save contact details</button>
+      </form>
+
+      <form class="panel" id="social-form">
+        <h2>Add or edit a social link</h2>
+        <p class="help">Examples: LinkedIn, Facebook, Instagram, YouTube, X, TikTok. They appear on the Contact page and in the footer.</p>
+        <input type="hidden" name="id">
+        <label for="s-name">Name (e.g. LinkedIn)</label>
+        <input id="s-name" name="name" required>
+        <label for="s-url">Link (starts with https://)</label>
+        <input id="s-url" name="url" type="url" required>
+        <label for="s-sort">Order (1 shows first)</label>
+        <input id="s-sort" name="sort" type="number" value="1">
+        <div class="actions">
+          <button class="btn btn-green" type="submit">Save link</button>
+          <button class="btn btn-outline" type="button" data-clear>Clear form</button>
+        </div>
+      </form>
+      <div class="panel"><h2>Your social links</h2><div id="social-list"></div></div>
+    </div>
+
+    <!-- ---- MESSAGES ---- -->
+    <div class="tab" id="tab-messages" hidden>
+      <div class="panel"><h2>Messages from the Contact page</h2><div id="message-list"></div></div>
+    </div>
+
     <!-- ---- WEBSITE TEXT ---- -->
     <div class="tab" id="tab-text" hidden>
-      <form class="panel" id="settings-form">
+      <form class="panel settings-form" id="settings-form">
         <h2>Website text</h2>
         <p class="help">Leave a box empty to keep the default text.</p>
         <label>Big headline on the home page</label>
@@ -211,12 +255,6 @@
         <input name="donate_heading">
         <label>Donate section text (write what donations make possible)</label>
         <textarea name="donate_text"></textarea>
-        <label>Contact email (shown in the footer)</label>
-        <input name="contact_email">
-        <label>Contact phone</label>
-        <input name="contact_phone">
-        <label>Address</label>
-        <input name="contact_address">
         <button class="btn btn-green" type="submit">Save website text</button>
       </form>
     </div>

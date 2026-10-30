@@ -69,7 +69,8 @@ async function refresh() {
   if (loggedIn) {
     managers.forEach((m) => m.reload());
     loadSettings();
-    loadRequests();
+    loadInbox("join_requests", "request-list");
+    loadInbox("contact_messages", "message-list");
     loadOverview();
   }
 }
@@ -96,7 +97,7 @@ async function loadOverview() {
     const { count } = await db.from(table).select("*", { count: "exact", head: true });
     return count || 0;
   };
-  const [projects, posts, donate] = await Promise.all([count("projects"), count("posts"), count("donation_methods")]);
+  const [projects, posts, donate, social, messages] = await Promise.all([count("projects"), count("posts"), count("donation_methods"), count("social_links"), count("contact_messages")]);
   const team = (await db.from("team_members").select("group_name")).data || [];
   const settings = (await db.from("settings").select("*")).data || [];
   const requests = await db.from("join_requests").select("*", { count: "exact" }).order("created_at", { ascending: false }).limit(5);
@@ -106,6 +107,7 @@ async function loadOverview() {
   $("stat-team").textContent = team.length;
   $("stat-donate").textContent = donate;
   $("stat-requests").textContent = requests.count || 0;
+  $("stat-messages").textContent = messages;
 
   // To-do list: only things that are still empty.
   const s = {};
@@ -118,7 +120,8 @@ async function loadOverview() {
     [projects === 0, "Add your first project", "projects"],
     [posts === 0, "Write your first blog post", "posts"],
     [donate === 0, "Add your donation details", "donate"],
-    [!s.contact_email && !s.contact_phone, "Add a contact email or phone", "text"],
+    [!s.contact_email && !s.contact_phone && !s.contact_whatsapp, "Add your contact email or phone", "contact"],
+    [social === 0, "Add your social media links", "contact"],
   ].filter((t) => t[0]);
 
   const list = $("checklist");
@@ -267,37 +270,43 @@ const managers = [
   manager({ table: "posts", form: "post-form", list: "post-list", titleField: "title", sortBy: "published_at", ascending: false }),
   manager({ table: "team_members", form: "hero-form", list: "hero-list", titleField: "name", subField: "role", sortBy: "sort", ascending: true }),
   manager({ table: "donation_methods", form: "donate-form", list: "donate-list", titleField: "name", sortBy: "sort", ascending: true }),
+  manager({ table: "social_links", form: "social-form", list: "social-list", titleField: "name", subField: "url", sortBy: "sort", ascending: true }),
 ];
 
-// ---------------- Website text ----------------
+// ---------------- Website text and contact details ----------------
+// Both of these are "settings" forms: every box is saved as one setting.
 async function loadSettings() {
   const { data, error } = await db.from("settings").select("*");
   if (error) return say(error.message, true);
-  const form = $("settings-form");
-  data.forEach((r) => {
-    if (form.elements[r.key]) form.elements[r.key].value = r.value;
+  document.querySelectorAll(".settings-form").forEach((form) => {
+    data.forEach((r) => {
+      if (form.elements[r.key]) form.elements[r.key].value = r.value;
+    });
   });
 }
 
-$("settings-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const rows = [];
-  for (const el of e.target.elements) {
-    if (el.name) rows.push({ key: el.name, value: el.value });
-  }
-  const { error } = await db.from("settings").upsert(rows, { onConflict: "key" });
-  if (error) return say("Could not save: " + error.message, true);
-  say("Website text saved.");
-  loadOverview();
+document.querySelectorAll(".settings-form").forEach((form) => {
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const rows = [];
+    for (const el of form.elements) {
+      if (el.name) rows.push({ key: el.name, value: el.value });
+    }
+    const { error } = await db.from("settings").upsert(rows, { onConflict: "key" });
+    if (error) return say("Could not save: " + error.message, true);
+    say("Saved! It is now on your website.");
+    loadOverview();
+  });
 });
 
-// ---------------- Join requests ----------------
-async function loadRequests() {
-  const list = $("request-list");
-  const { data, error } = await db.from("join_requests").select("*").order("created_at", { ascending: false });
+// ---------------- Join requests and contact messages ----------------
+// Both lists work the same way, only the table and the place on the page differ.
+async function loadInbox(table, listId) {
+  const list = $(listId);
+  const { data, error } = await db.from(table).select("*").order("created_at", { ascending: false });
   if (error) return say(error.message, true);
   list.innerHTML = "";
-  if (!data.length) list.textContent = "No requests yet.";
+  if (!data.length) list.textContent = "Nothing here yet.";
   data.forEach((r) => {
     const item = document.createElement("div");
     item.className = "row-item";
@@ -305,12 +314,13 @@ async function loadRequests() {
     const name = document.createElement("strong");
     name.textContent = r.name + " (" + r.email + ")";
     const msg = document.createElement("small");
-    msg.textContent = (r.message || "") + "  " + new Date(r.created_at).toLocaleDateString();
+    msg.style.whiteSpace = "pre-line";
+    msg.textContent = (r.message || "") + "\n" + new Date(r.created_at).toLocaleDateString();
     text.append(name, msg);
     item.append(text, miniButton("Delete", async () => {
-      if (!confirm("Delete this request?")) return;
-      await db.from("join_requests").delete().eq("id", r.id);
-      loadRequests();
+      if (!confirm("Delete this one?")) return;
+      await db.from(table).delete().eq("id", r.id);
+      loadInbox(table, listId);
       loadOverview();
     }, "danger"));
     list.append(item);
